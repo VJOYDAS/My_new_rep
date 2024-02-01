@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="user-scalable=no">
+    <title>Page title</title>
+    <style>
+        *{
+            padding:0;
+            margin:0;
+            box-sizing:border-box;
+        }
+        body{
+            background:cyan;
+            display:grid;
+            place-items:center;
+            height:100vh;
+        }
+        .cal{
+            height:80vh;
+            width:90vw;
+            background:#9b6aff;
+            border-radius:100px;
+            justify-content:center;
+            padding-left:32px;
+            box-shadow:inset 0px -30px 30px #6b49b1;
+            border:5px solid #6b49b1;
+            
+            
+        }
+        
+        .screen_but{
+            height:150px;
+            width:150px;
+            background:white;
+            position:relative;
+            display:inline-block;
+            border-radius:20px;
+            margin:5px 5px 20px 6px;
+            top:8%;
+            font-size:400%;
+            text-align:center;
+            padding-top:5%;
+            font-weight:bold;
+            color:blue;
+            box-shadow:inset 10px -10px 15px black;
+            
+        }
+        .screen_but:hover{
+            background:#ffe895;
+            color:red;
+        }
+        #text{
+            width:90%;
+            margin-left:25px;
+            margin-bottom:200px;
+            overflow:scroll;
+            font-weight:10px;
+            font-size:500%;
+            color:black;
+            text-align:right;
+            padding-right:4%;
+            box-shadow:inset 0px -10px 20px black;
+        }
+        #text:hover{
+            background:white;
+            color:black;
+        }
+        .p{
+            
+            
+            background:#8f8f8f;
+            position:absolute;
+            font-size:4em;
+            color:white;
+            padding:20px;
+            top:470px;
+            text-align:center;
+            border-radius:40%;
+            display:none;
+        }
+    </style>
+    
+</head>
+<body>
+    <div class="cal">
+        <div class="screen_but" id="text"></div>
+        <div class="screen_but" ontouchstart="press(this)">1</div>
+        <div class="screen_but" ontouchstart="press(this)">2</div>
+        <div class="screen_but" ontouchstart="press(this)">3</div>
+        <div class="screen_but" ontouchstart="press(this)">4</div>
+        <div class="screen_but" ontouchstart="press(this)">5</div>
+        <div class="screen_but" ontouchstart="press(this)">6</div>
+        <div class="screen_but" ontouchstart="press(this)">7</div>
+        <div class="screen_but" ontouchstart="press(this)">8</div>
+        <div class="screen_but" ontouchstart="press(this)">9</div>
+        <div class="screen_but" ontouchstart="press(this)">0</div>
+        <div class="screen_but" ontouchstart="press(this)">+</div>
+        <div class="screen_but" ontouchstart="press(this)">-</div>
+        <div class="screen_but" ontouchstart="press(this)">*</div>
+        <div class="screen_but" ontouchstart="press(this)">/</div>
+        <div class="screen_but" ontouchstart="press(this)">%</div>
+        <div class="screen_but" ontouchstart="back()">DEL</div>
+        <div class="screen_but" ontouchstart="result()">=</div>
+        <div class="screen_but" ontouchstart="cl()">AC</div>
+    </div>
+    <div class="p">INVALID FORMAT</div>
+    <script>
+        let string="";
+        function press(b){
+        let cal=document.querySelector('.cal');
+        let txt=document.querySelector('#text');
+        let but=document.querySelectorAll('.screen_but');
+        let p=document.querySelector('.p');
+        p.style.display="none";
+        if(txt.innerText.slice(-1)!='+' && txt.innerText.slice(-1)!='-' && txt.innerText.slice(-1)!='*' &&
+txt.innerText.slice(0)!='' &&
+txt.innerText.slice(-1)!='%' && txt.innerText.slice(-1)!='/' || b.innerText!='+' && b.innerText!='-' &&  b.innerText!='*' && b.innerText!='/' && b.innerText!='%'
+            ){
+        let num=b.innerText;
+        string=string+num;
+        txt.innerText=string;
+        }
+        
+        }
+        function cl(){
+            let txt=document.querySelector('#text');
+            let p=document.querySelector('.p');
+            p.style.display="none";
+            txt.innerText="";
+            string="";
+            txt.style.fontSize="5em";
+        }
+        function back(){
+            let txt=document.querySelector('#text');
+            let p=document.querySelector('.p');
+            p.style.display="none";
+            string=string.toString();
+            let st=string.slice(0,-1);
+            string=st;
+            txt.innerText=string;
+            
+        }
+        
+        function result() {
+            let txt=document.querySelector('#text');
+            let p=document.querySelector('.p');
+            p.style.display="none";
+            string=eval(string);
+            txt.innerText=string;
+            if(txt.innerText=="undefined"){
+                string="";
+                txt.innerText=string;
+                
+            }
+            else if(txt.innerText=="NaN" || txt.innerText=="Infinity"){
+                string="";
+                txt.innerText=string;
+                p.style.display="block";
+            }
+            
+         }
+    </script>
+</body>
+</html>
